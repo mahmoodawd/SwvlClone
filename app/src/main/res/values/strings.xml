@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SwvlClone</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="go_places">Go Places</string>
+    <string name="enter_your_mobile_number">Enter Your mobile number</string>
+    <string name="or_connect_with_social">Or Connect with Social</string>
+    <string name="verify_your_number">Verify Your Number</string>
+    <string name="terms_notice">By Continuing, you agree to SWVLs Terms and Privacy</string>
 </resources>
