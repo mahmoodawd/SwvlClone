@@ -1,6 +1,5 @@
 package com.example.swvlclone.ui.auth
 
-import android.os.CountDownTimer
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
@@ -43,6 +42,7 @@ import kotlinx.coroutines.delay
 fun OTPScreen(
     phoneNumber: String,
     onBackPressed: () -> Unit,
+    onForwardClick: () -> Unit
 ) {
     val imeState by rememberImeState()
     val scrollState = rememberScrollState()
@@ -94,7 +94,7 @@ fun OTPScreen(
                 .fillMaxWidth()
                 .weight(1f),
             onForwardClick = {
-                //Take the otp Value and check if correct
+                onForwardClick()
             }, onHelpClick = {})
     }
 }
@@ -105,20 +105,20 @@ fun OtpSentStatusText(
     onTimesUp: () -> Unit = {}
 ) {
     var timeOutValue by remember { mutableIntStateOf(5) }
-        LaunchedEffect(Unit) {
-            while (timeOutValue > 0) {
-                delay(1000)
-                timeOutValue--
-            }
+    LaunchedEffect(Unit) {
+        while (timeOutValue > 0) {
+            delay(1000)
+            timeOutValue--
         }
-        val animatedValue by animateIntAsState(
-            targetValue = timeOutValue,
-            animationSpec = tween(durationMillis = timeOutValue * 1000),
-            label = ""
-        )
-        val isTimeLeft = animatedValue > 0
-        val msg =
-            if (isTimeLeft) "Resend Code in $animatedValue Seconds" else "Resend verification Code"
+    }
+    val animatedValue by animateIntAsState(
+        targetValue = timeOutValue,
+        animationSpec = tween(durationMillis = timeOutValue * 1000),
+        label = ""
+    )
+    val isTimeLeft = animatedValue > 0
+    val msg =
+        if (isTimeLeft) "Resend Code in $animatedValue Seconds" else "Resend verification Code"
     Text(
         text = msg,
         color = if (isTimeLeft) MaterialTheme.colorScheme.outline else Color.Blue,
@@ -157,6 +157,6 @@ fun BottomSection(
 @Composable
 fun OTPScreenPreview() {
     SwvlCloneTheme {
-        OTPScreen("01141680631") {}
+        OTPScreen("01141680631", {}) {}
     }
 }

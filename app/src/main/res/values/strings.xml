@@ -7,4 +7,25 @@
     <string name="or_connect_with_social">Or Connect with Social</string>
     <string name="verify_your_number">Verify Your Number</string>
     <string name="terms_notice">By Continuing, you agree to SWVLs Terms and Privacy</string>
+    <string name="daily">Daily</string>
+    <string name="daily_desc">Ride in Cairo</string>
+    <string name="travel">Travel</string>
+    <string name="travel_desc">City to City</string>
+    <string name="private_ride">Private Ride</string>
+    <string name="private_ride_desc">Hire a vehicle</string>
+    <string name="now">Now</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="my_current_location">My Current Location</string>
+    <string name="where_to">Where To?</string>
+    <string name="add_home">Add Home</string>
+    <string name="add_work">Add Work</string>
+    <string name="travel_from_cairo">Travel From Cairo</string>
+    <string name="alex">Alexandria</string>
+    <string name="hurghada">Hurghada</string>
+    <string name="dahab">Dahab</string>
+    <string name="ismailia">Ismailia</string>
+    <string name="mansura">Mansura</string>
+    <string name="tanta">Tanta</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
 </resources>
