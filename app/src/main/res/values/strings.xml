@@ -28,4 +28,11 @@
     <string name="tanta">Tanta</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
+    <string name="from_where">From Where?</string>
+    <string name="saved_places">Saved Places</string>
+    <string name="use_map">Set Location on Map</string>
+    <string name="no_rides">No rides available</string>
+    <string name="no_rides_notice">Tap Here to request a ride for this route</string>
+    <string name="choose_your_trip">Choose Your Trip</string>
+    <string name="request_ride">Request Ride</string>
 </resources>

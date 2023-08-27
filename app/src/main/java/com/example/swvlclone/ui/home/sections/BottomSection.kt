@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.home.components
+package com.example.swvlclone.ui.home.sections
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

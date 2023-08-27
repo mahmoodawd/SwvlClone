@@ -19,6 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.swvlclone.ui.components.SwvlCloneNavigationDrawer
 import com.example.swvlclone.ui.components.SwvlCloneTopBar
+import com.example.swvlclone.ui.navigation.HomeDest
 import com.example.swvlclone.ui.navigation.SwvlCloneNavHost
 import com.example.swvlclone.ui.navigation.YourTripsDest
 import com.example.swvlclone.ui.navigation.drawerItems
@@ -41,48 +42,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun SwvlCloneApp() {
     SwvlCloneTheme {
-        val scaffoldState = rememberScaffoldState()
-        val coroutineScope = rememberCoroutineScope()
         val navController = rememberNavController()
-        val currentBackStack by navController.currentBackStackEntryAsState()
-        val currentDestination = currentBackStack?.destination
-        val context = LocalContext.current
-        Scaffold(
-            scaffoldState = scaffoldState,
-            topBar = {
-                SwvlCloneTopBar(
-                    onMenuIconClick = {
-                        coroutineScope.launch {
-                            scaffoldState.drawerState.open()
-                        }
-                    }
-                )
-            },
-            drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
-            drawerContent = {
-                SwvlCloneNavigationDrawer(
-                    items = drawerItems,
-                    onItemClick = { route ->
-                        coroutineScope.launch {
-                            scaffoldState.drawerState.close()
-                        }
-//                        navController.navigate(it)
-                        Toast.makeText(
-                            context,
-                            drawerItems.find { it.route == route }!!.name,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    },
-                    currentDestination = currentDestination?.route
-                        ?: YourTripsDest.route
-                )
-            }
-        ) { paddingValue ->
-            SwvlCloneNavHost(
-                navController = navController,
-                modifier = Modifier.padding(paddingValue)
-            )
-        }
+
+        SwvlCloneNavHost(
+            navController = navController,
+        )
+
     }
 }
 

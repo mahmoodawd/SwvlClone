@@ -36,7 +36,19 @@ object OtpDest : SwvlCloneDestination {
         }
     )
 }
+object TripsDest : SwvlCloneDestination {
+    override val route: String
+        get() = "trips"
+    override val name: String
+        get() = "Trips"
+}
 
+object LocationDest : SwvlCloneDestination {
+    override val route: String
+        get() = "location"
+    override val name: String
+        get() = "Location"
+}
 object HomeDest : SwvlCloneDestination {
     override val route: String
         get() = "home_screen"

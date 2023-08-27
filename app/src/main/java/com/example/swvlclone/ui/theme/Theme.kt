@@ -80,7 +80,8 @@ private val DarkColors = darkColorScheme(
 
 @Composable
 fun SwvlCloneTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    useDarkTheme: Boolean = false,
+//        isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
     val colors = if (!useDarkTheme) {

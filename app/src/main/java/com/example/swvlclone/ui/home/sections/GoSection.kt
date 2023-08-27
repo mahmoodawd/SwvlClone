@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.home.components
+package com.example.swvlclone.ui.home.sections
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -37,6 +37,7 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 fun GoSection(
     modifier: Modifier = Modifier,
     onTripTimeClick: () -> Unit = {},
+    onLocationCardClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -56,7 +57,7 @@ fun GoSection(
             onTripTimeClick()
         }
         LocationCard {
-            //Nav to Trip Screen
+            onLocationCardClick()
         }
     }
 }
@@ -189,7 +190,7 @@ fun TripTimeBottomSheet(
                 .align(CenterHorizontally)
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp, vertical = 12.dp),
-            onClick = {  }) {
+            onClick = { }) {
             Text(text = "Proceed")
 
         }

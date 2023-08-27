@@ -1,14 +1,12 @@
-package com.example.swvlclone.ui.home.components
+package com.example.swvlclone.ui.home.sections
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -50,7 +48,7 @@ fun FavoriteLocationSection(
 }
 
 @Composable
-fun FavoriteLocationItem(
+private fun FavoriteLocationItem(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     locationSet: Boolean = false,

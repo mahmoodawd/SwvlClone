@@ -19,8 +19,8 @@ fun BackButton(
         imageVector = Icons.Default.ArrowBack,
         contentDescription = null,
         modifier = modifier
+//            .padding(start = 8.dp, top = 8.dp)
             .size(36.dp)
-            .padding(start = 8.dp, top = 8.dp)
             .clickable {
                 onClick()
             }
