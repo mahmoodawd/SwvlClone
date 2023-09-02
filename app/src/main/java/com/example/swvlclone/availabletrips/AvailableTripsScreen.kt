@@ -17,21 +17,33 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.swvlclone.R
-import com.example.swvlclone.domain.models.TripLocation
-import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.availabletrips.sections.DaysSection
 import com.example.swvlclone.availabletrips.sections.HoursSection
 import com.example.swvlclone.availabletrips.tripitem.TripItem
 import com.example.swvlclone.availabletrips.tripitem.components.TripModel
+import com.example.swvlclone.domain.models.TripLocation
+import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.ui.components.SwvlCloneTopBar
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TripsScreen(
-    onBackPressed: () -> Unit = {},
+fun AvailableTripsRoute(
+    onBackPressed: () -> Unit,
     selectedTripTime: TripTime,
     selectedTripLocation: TripLocation,
+) {
+    val availableTrips = createTripList()
+    /*TODO availableTrips should be retrieved from viewModel
+            By passing trip time and location
+     */
+    AvailableTripsScreen(onBackPressed = onBackPressed, availableTrips)
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun AvailableTripsScreen(
+    onBackPressed: () -> Unit,
+    availableTrips: List<TripModel> = emptyList()
 ) {
     Scaffold(
         topBar = {
@@ -43,10 +55,6 @@ fun TripsScreen(
         }
     ) { paddingValues ->
 
-        val availableTrips = createTripList()
-        /*TODO availableTrips should be retrieved from viewModel
-                By passing trip time and location
-         */
 
         if (availableTrips.isEmpty()) {
             NoTripsLayout(modifier = Modifier.padding(paddingValues))
@@ -62,7 +70,7 @@ fun TripsScreen(
                     .background(MaterialTheme.colorScheme.surface),
             ) {
                 stickyHeader {
-                    Column{
+                    Column {
                         DaysSection(
                             modifier = Modifier.background(Color.White),
                             days = createDaysList(),
@@ -76,7 +84,6 @@ fun TripsScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
-
 
                 items(availableTrips) { tripModel ->
                     TripItem(trip = tripModel)
@@ -93,9 +100,9 @@ fun TripsScreen(
 @Composable
 private fun TripsScreenPreview() {
     SwvlCloneTheme {
-        TripsScreen(
-            selectedTripTime = TripTime(day = "", hour = ""),
-            selectedTripLocation = TripLocation(from = "", to = ""),
+        AvailableTripsScreen(
+            onBackPressed = {},
+            createTripList()
         )
     }
 }

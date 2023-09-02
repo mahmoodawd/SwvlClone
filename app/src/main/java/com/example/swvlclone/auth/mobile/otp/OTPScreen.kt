@@ -1,7 +1,8 @@
-package com.example.swvlclone.auth
+package com.example.swvlclone.auth.mobile.otp
 
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -39,24 +40,38 @@ import com.example.swvlclone.ui.utils.rememberImeState
 import kotlinx.coroutines.delay
 
 @Composable
+fun OtpRoute(
+    phoneNumber: String,
+    onBackPressed: () -> Unit,
+    onForwardClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val scrollState = rememberScrollState()
+
+    OTPScreen(
+        phoneNumber = phoneNumber,
+        onBackPressed = onBackPressed,
+        onForwardClick = onForwardClick,
+        scrollState = scrollState,
+        modifier = modifier,
+    )
+}
+
+@Composable
 fun OTPScreen(
     phoneNumber: String,
     onBackPressed: () -> Unit,
-    onForwardClick: () -> Unit
+    onForwardClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    scrollState: ScrollState,
 ) {
-    val imeState by rememberImeState()
-    val scrollState = rememberScrollState()
+
     var otp by remember {
         mutableStateOf("")
     }
-    LaunchedEffect(key1 = imeState) {
-        if (imeState) {
-            scrollState.animateScrollTo(scrollState.maxValue)
-        }
-    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(16.dp)
@@ -88,7 +103,7 @@ fun OTPScreen(
             onValueChange = {
                 otp = it
             })
-        OtpSentStatusText() {}
+        OtpSentStatusText(onTimesUp = {})
         BottomSection(
             modifier = Modifier
                 .fillMaxWidth()
@@ -157,6 +172,11 @@ fun BottomSection(
 @Composable
 fun OTPScreenPreview() {
     SwvlCloneTheme {
-        OTPScreen("01141680631", {}) {}
+        OTPScreen(
+            phoneNumber = "0141523698",
+            onBackPressed = { },
+            onForwardClick = { },
+            scrollState = ScrollState(0)
+        )
     }
 }

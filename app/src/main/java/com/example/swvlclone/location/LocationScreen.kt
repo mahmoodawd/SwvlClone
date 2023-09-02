@@ -21,10 +21,23 @@ import com.example.swvlclone.ui.components.BackButton
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
-fun LocationScreen(
+fun LocationRoute(
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit = {},
     onLocationPicked: (TripLocation) -> Unit = {}
+) {
+    LocationScreen(
+        onBackPressed = onBackPressed,
+        onLocationPicked = onLocationPicked,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun LocationScreen(
+    modifier: Modifier = Modifier,
+    onBackPressed: () -> Unit,
+    onLocationPicked: (TripLocation) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
@@ -57,7 +70,9 @@ private fun ThickDivider() {
 @Composable
 private fun LocationScreenPreview() {
     SwvlCloneTheme {
-        LocationScreen()
+        LocationScreen(
+            onBackPressed = {},
+            onLocationPicked = {})
     }
 
 }

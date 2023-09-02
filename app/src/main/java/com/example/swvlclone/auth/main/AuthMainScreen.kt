@@ -1,4 +1,4 @@
-package com.example.swvlclone.auth
+package com.example.swvlclone.auth.main
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -39,6 +39,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.swvlclone.R
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
+
+@Composable
+fun AuthMainRoute(
+    modifier: Modifier = Modifier,
+    onPhoneFieldClick: () -> Unit,
+    /*This Route just to gain Ref to the related ViewModel
+        and pass states and events to down to the screen
+     */
+) {
+// Collecting States from the ViewModel should Go here!
+
+    AuthScreen(
+        onPhoneFieldClick = onPhoneFieldClick,
+        modifier = modifier
+    )
+}
 
 @Composable
 fun AuthScreen(

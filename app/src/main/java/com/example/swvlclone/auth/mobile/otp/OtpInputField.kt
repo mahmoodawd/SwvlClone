@@ -1,4 +1,4 @@
-package com.example.swvlclone.auth
+package com.example.swvlclone.auth.mobile.otp
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.border

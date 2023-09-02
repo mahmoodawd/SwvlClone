@@ -1,6 +1,8 @@
-package com.example.swvlclone.auth
+package com.example.swvlclone.auth.mobile
 
+import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,21 +47,34 @@ import com.example.swvlclone.ui.utils.rememberImeState
 import com.togitech.ccp.component.TogiCountryCodePicker
 
 @Composable
-fun MobileAuthScreen(
-    onForwardButtonClick: (String) -> Unit = {},
-    onBackPressed: () -> Unit = {},
+fun MobileAuthRoute(
+    onForwardButtonClick: (String) -> Unit,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    val imeState by rememberImeState()
     val scrollState = rememberScrollState()
-    LaunchedEffect(key1 = imeState) {
-        if (imeState) {
-            scrollState.animateScrollTo(scrollState.maxValue)
-        }
-    }
+
+    MobileAuthScreen(
+        onForwardButtonClick = onForwardButtonClick,
+        onBackPressed = onBackPressed,
+        context = context,
+        scrollState = scrollState,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun MobileAuthScreen(
+    onForwardButtonClick: (String) -> Unit,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+    context: Context,
+    scrollState: ScrollState
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(16.dp)
@@ -72,10 +86,13 @@ fun MobileAuthScreen(
             mutableStateOf(false)
         }
         BackButton(
-            modifier = Modifier
-                .align(Alignment.Start)
-        ) { onBackPressed() }
+            onClick = {
+                onBackPressed()
+            },
+            modifier = Modifier.align(Alignment.Start)
+        )
         TogiCountryCodePicker(
+            fallbackCountryCode = "+20",
             onValueChange = { (code, phone), isValid ->
                 fullPhoneNumber = code + phone
                 isPhoneValid = isValid
@@ -193,7 +210,12 @@ fun TermsAndPrivacyText(modifier: Modifier = Modifier) {
 @Composable
 fun MobileAuthPreview() {
     SwvlCloneTheme {
-        MobileAuthScreen()
+        MobileAuthScreen(
+            onForwardButtonClick = {},
+            onBackPressed = { },
+            context = LocalContext.current,
+            scrollState = ScrollState(0)
+        )
     }
 
 }

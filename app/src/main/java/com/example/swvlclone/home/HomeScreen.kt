@@ -10,6 +10,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.MaterialTheme
@@ -20,28 +21,49 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.swvlclone.R
 import com.example.swvlclone.domain.models.TripTime
-import com.example.swvlclone.ui.components.SwvlCloneNavigationDrawer
-import com.example.swvlclone.ui.components.SwvlCloneTopBar
 import com.example.swvlclone.home.sections.BottomSection
 import com.example.swvlclone.home.sections.FavoriteLocationSection
 import com.example.swvlclone.home.sections.GoSection
 import com.example.swvlclone.home.sections.OfferItem
 import com.example.swvlclone.home.sections.TripTimeBottomSheet
 import com.example.swvlclone.home.sections.TripsSection
-import com.example.swvlclone.ui.navigation.HomeDest
+import com.example.swvlclone.ui.components.SwvlCloneNavigationDrawer
+import com.example.swvlclone.ui.components.SwvlCloneTopBar
 import com.example.swvlclone.ui.navigation.drawerItems
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+@Composable
+fun HomeRoute(
+    onLocationClick: (TripTime) -> Unit,
+    onDrawerItemClick: (String) -> Unit,
+    currentDestinationRoute: String,
+    modifier: Modifier = Modifier
+) {
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+    HomeScreen(
+        onLocationClick = onLocationClick,
+        onDrawerItemClick = onDrawerItemClick,
+        scaffoldState = scaffoldState,
+        coroutineScope = coroutineScope,
+        currentDestinationRoute = currentDestinationRoute,
+        modifier = modifier,
+    )
+
+}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
-    onLocationClick: (TripTime) -> Unit = {},
-    onDrawerItemClick: (String) -> Unit = {},
-    currentDestinationRoute: String? = HomeDest.route
+    onLocationClick: (TripTime) -> Unit,
+    onDrawerItemClick: (String) -> Unit,
+    currentDestinationRoute: String,
+    scaffoldState: ScaffoldState,
+    coroutineScope: CoroutineScope,
+    modifier: Modifier = Modifier
 ) {
-    val scaffoldState = rememberScaffoldState()
-    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -119,6 +141,12 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     SwvlCloneTheme {
-        HomeScreen()
+        HomeScreen(
+            onLocationClick = {},
+            onDrawerItemClick = {},
+            scaffoldState = rememberScaffoldState(),
+            coroutineScope = rememberCoroutineScope(),
+            currentDestinationRoute = ""
+        )
     }
 }
