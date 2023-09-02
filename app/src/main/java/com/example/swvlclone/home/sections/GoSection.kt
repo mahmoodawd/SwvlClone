@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.home.sections
+package com.example.swvlclone.home.sections
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.swvlclone.R
+import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
@@ -159,7 +160,8 @@ private fun LocationField(
 
 @Composable
 fun TripTimeBottomSheet(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onProceedButtonClick: (TripTime) -> Unit = {}
 ) {
 
     Column(
@@ -178,11 +180,11 @@ fun TripTimeBottomSheet(
         )
         Divider()
         DateTimePickerItem(text = R.string.time) {
-            //Show Time Picker
+            //TODO Show Time Picker
         }
         Divider()
         DateTimePickerItem(text = R.string.date) {
-            //Show date Picker
+            //TODO Show date Picker
         }
         Divider()
         Button(
@@ -190,7 +192,10 @@ fun TripTimeBottomSheet(
                 .align(CenterHorizontally)
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp, vertical = 12.dp),
-            onClick = { }) {
+            onClick = {
+                //TODO Get picked day and hour
+                onProceedButtonClick(TripTime(day = "Tomorrow", hour = "06:00 am"))
+            }) {
             Text(text = "Proceed")
 
         }

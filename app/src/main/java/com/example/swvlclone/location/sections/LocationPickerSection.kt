@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.location.sections
+package com.example.swvlclone.location.sections
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -34,12 +34,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.swvlclone.R
+import com.example.swvlclone.domain.models.TripLocation
 
 @Composable
 fun LocationPickerSection(
     modifier: Modifier = Modifier,
     onSwapClick: () -> Unit = {},
-    onLocationPicked: () -> Unit = {}
+    onLocationPicked: (TripLocation) -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -49,7 +50,18 @@ fun LocationPickerSection(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .clickable { onLocationPicked() } // TODO To Be Deleted
+                .clickable {
+                    /*  TODO To Be Deleted(Just for testing)
+                        Because we will get trip location when user pick from and to locations
+                        from the below Location input fields
+                     */
+                    onLocationPicked(
+                        TripLocation(
+                            from = "Cairo",
+                            to = "Alexandria"
+                        )
+                    )
+                }
         ) {
             LocationInputField(tint = Color.Red, placeHolder = R.string.from_where, selected = true)
             LocationInputField(tint = Color.Blue, placeHolder = R.string.where_to)

@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.auth
+package com.example.swvlclone.auth
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box

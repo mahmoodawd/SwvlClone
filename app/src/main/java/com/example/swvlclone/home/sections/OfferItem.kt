@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.home.sections
+package com.example.swvlclone.home.sections
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

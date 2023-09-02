@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.location.sections
+package com.example.swvlclone.location.sections
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background

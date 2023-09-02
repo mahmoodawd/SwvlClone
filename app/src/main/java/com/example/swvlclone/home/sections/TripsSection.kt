@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.home.sections
+package com.example.swvlclone.home.sections
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -69,12 +69,11 @@ fun TripTypeItem(
             contentDescription = stringResource(id = subtitle),
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
-                .padding(12.dp)
-                .clip(CircleShape)
-                .background(shape = CircleShape, color = Color.White)
-                .padding(4.dp)
                 .size(75.dp)
-                .shadow(shape = CircleShape, elevation = 2.dp)
+                .shadow(shape = CircleShape, elevation = 8.dp, clip = true)
+                .background(Color.White)
+                .clip(CircleShape)
+                .padding(4.dp)
         )
         Text(
             text = stringResource(id = title),

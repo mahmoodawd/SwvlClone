@@ -70,6 +70,8 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     //System UI Controller
 //    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.0-alpha")

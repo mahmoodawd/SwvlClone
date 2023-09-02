@@ -36,24 +36,44 @@ object OtpDest : SwvlCloneDestination {
         }
     )
 }
-object TripsDest : SwvlCloneDestination {
-    override val route: String
-        get() = "trips"
-    override val name: String
-        get() = "Trips"
-}
 
-object LocationDest : SwvlCloneDestination {
-    override val route: String
-        get() = "location"
-    override val name: String
-        get() = "Location"
-}
 object HomeDest : SwvlCloneDestination {
     override val route: String
         get() = "home_screen"
     override val name: String
         get() = "Home"
+}
+
+object LocationDest : SwvlCloneDestination {
+    override val name: String
+        get() = "Location"
+    override val route: String
+        get() = "location"
+    const val tripTimeArg = "trip_time"
+    val routeWithArgs = "$route/{$tripTimeArg}"
+    val arguments = listOf(
+        navArgument(name = tripTimeArg) {
+            type = TimeArgType()
+        },
+    )
+}
+
+object TripsDest : SwvlCloneDestination {
+    override val name: String
+        get() = "Trips"
+    override val route: String
+        get() = "trips"
+    const val tripTimeArg = "trip_time"
+    const val tripLocationArg = "trip_location"
+    val routeWithArgs = "${route}/{$tripTimeArg}/{$tripLocationArg}"
+    val arguments = listOf(
+        navArgument(name = tripTimeArg) {
+            type = TimeArgType()
+        },
+        navArgument(name = tripLocationArg) {
+            type = LocationArgType()
+        }
+    )
 }
 
 object YourTripsDest : SwvlCloneDestination {

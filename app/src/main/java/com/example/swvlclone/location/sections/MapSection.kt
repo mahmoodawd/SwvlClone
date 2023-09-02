@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.location.sections
+package com.example.swvlclone.location.sections
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

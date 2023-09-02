@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui.location
+package com.example.swvlclone.location
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,17 +13,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.swvlclone.domain.models.TripLocation
+import com.example.swvlclone.location.sections.FavoriteLocationsSection
+import com.example.swvlclone.location.sections.LocationPickerSection
+import com.example.swvlclone.location.sections.MapSection
 import com.example.swvlclone.ui.components.BackButton
-import com.example.swvlclone.ui.location.sections.FavoriteLocationsSection
-import com.example.swvlclone.ui.location.sections.LocationPickerSection
-import com.example.swvlclone.ui.location.sections.MapSection
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
 fun LocationScreen(
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit = {},
-    onLocationPicked: () -> Unit = {}
+    onLocationPicked: (TripLocation) -> Unit = {}
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
@@ -32,7 +33,7 @@ fun LocationScreen(
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         BackButton { onBackPressed() }
-        LocationPickerSection(onLocationPicked = { onLocationPicked() })
+        LocationPickerSection(onLocationPicked = { onLocationPicked(it) })
         ThickDivider()
         FavoriteLocationsSection()
         ThickDivider()

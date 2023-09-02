@@ -1,16 +1,17 @@
 package com.example.swvlclone.ui.components
 
-import androidx.compose.foundation.Image
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,16 +28,19 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
 fun SwvlCloneTopBar(
-    onMenuIconClick: () -> Unit = {}
+    title: String,
+    subtitle: String? = null,
+    @DrawableRes icon: Int,
+    onIconClick: () -> Unit = {}
 ) {
     TopAppBar(
-        title = { CurrentUserView("Mahmoud") },
+        title = { AppBarTitle(title = title, subtitle = subtitle ?: "") },
         backgroundColor = Color.Transparent,
         elevation = 0.dp,
         navigationIcon = {
-            IconButton(onClick = { onMenuIconClick() }) {
-                Image(
-                    painter = painterResource(id = R.drawable.burger_menu_left),
+            IconButton(onClick = { onIconClick() }) {
+                Icon(
+                    painter = painterResource(id = icon),
                     contentDescription = "Drawer Icon",
                     modifier = Modifier
                         .size(42.dp)
@@ -52,26 +56,29 @@ fun SwvlCloneTopBar(
 }
 
 @Composable
-fun CurrentUserView(
-    currentUser: String = "User",
-    modifier: Modifier = Modifier
+fun AppBarTitle(
+    modifier: Modifier = Modifier,
+    title: String,
+    subtitle: String
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.background(MaterialTheme.colorScheme.surface)
+//        modifier = modifier.background(MaterialTheme.colorScheme.surface)
     ) {
         Text(
-            text = "Hey, $currentUser",
+            text = title,
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold
         )
-        Text(
-            text = "Where are you going?",
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Light,
-            color = MaterialTheme.colorScheme.outline
-        )
+        if (subtitle.isNotBlank()) {
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Light,
+                color = MaterialTheme.colorScheme.outline
+            )
+        }
     }
 }
 
@@ -79,6 +86,10 @@ fun CurrentUserView(
 @Composable
 fun SwvlTopBarPreview() {
     SwvlCloneTheme {
-        SwvlCloneTopBar()
+        SwvlCloneTopBar(
+            title = "Hey, User",
+            subtitle = "Where are you going?",
+            icon = R.drawable.burger_menu_left
+        )
     }
 }
