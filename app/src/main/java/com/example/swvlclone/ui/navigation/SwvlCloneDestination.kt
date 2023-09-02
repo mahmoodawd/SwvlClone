@@ -9,6 +9,15 @@ interface SwvlCloneDestination {
 
 }
 
+/*
+object SplashDest : SwvlCloneDestination {
+    override val route: String
+        get() = "splash_screen"
+    override val name: String
+        get() = "Splash"
+}
+*/
+
 object AuthDest : SwvlCloneDestination {
     override val route: String
         get() = "auth_screen"
