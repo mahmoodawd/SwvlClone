@@ -52,6 +52,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
@@ -70,11 +71,18 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+
+    //Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
+    //Google Maps
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.maps.android:maps-compose:2.14.0")
+    implementation ("com.google.maps.android:maps-compose-utils:2.14.0")
+    implementation ("com.google.maps.android:maps-compose-widgets:2.14.0")
+
     //System UI Controller
-//    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.0-alpha")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.0-alpha")
 
     //Testing
     testImplementation("junit:junit:4.13.2")

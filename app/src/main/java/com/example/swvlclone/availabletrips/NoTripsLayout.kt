@@ -44,7 +44,6 @@ fun NoTripsLayout(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-//        TopHeader()
         Spacer(modifier = Modifier.weight(0.5f))
         Image(
             painter = painterResource(id = R.drawable.mini_bus),

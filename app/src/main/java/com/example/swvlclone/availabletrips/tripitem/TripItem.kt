@@ -24,7 +24,7 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 fun TripItem(
     modifier: Modifier = Modifier,
     trip: TripModel,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier
@@ -71,7 +71,7 @@ private fun TripItemPreview() {
                 startDest = "New York City",
                 endDest = "Los Angeles",
             )
-        )
+        ){}
     }
 }
 

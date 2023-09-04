@@ -29,6 +29,7 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 @Composable
 fun AvailableTripsRoute(
     onBackPressed: () -> Unit,
+    onTripItemClick: (TripModel) -> Unit,
     selectedTripTime: TripTime,
     selectedTripLocation: TripLocation,
 ) {
@@ -36,13 +37,18 @@ fun AvailableTripsRoute(
     /*TODO availableTrips should be retrieved from viewModel
             By passing trip time and location
      */
-    AvailableTripsScreen(onBackPressed = onBackPressed, availableTrips)
+    AvailableTripsScreen(
+        onBackPressed = onBackPressed,
+        onTripItemClick = onTripItemClick,
+        availableTrips
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AvailableTripsScreen(
     onBackPressed: () -> Unit,
+    onTripItemClick: (TripModel) -> Unit,
     availableTrips: List<TripModel> = emptyList()
 ) {
     Scaffold(
@@ -86,7 +92,7 @@ fun AvailableTripsScreen(
                 }
 
                 items(availableTrips) { tripModel ->
-                    TripItem(trip = tripModel)
+                    TripItem(trip = tripModel, onClick = { onTripItemClick(tripModel) })
                 }
 
             }
@@ -102,6 +108,7 @@ private fun TripsScreenPreview() {
     SwvlCloneTheme {
         AvailableTripsScreen(
             onBackPressed = {},
+            onTripItemClick = {},
             createTripList()
         )
     }

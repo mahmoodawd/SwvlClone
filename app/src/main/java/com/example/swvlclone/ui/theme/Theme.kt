@@ -92,7 +92,7 @@ fun SwvlCloneTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color.Transparent.toArgb() // change color status bar here
+//            window.statusBarColor = Color.Transparent.toArgb() // change color status bar here
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
                 !useDarkTheme
         }

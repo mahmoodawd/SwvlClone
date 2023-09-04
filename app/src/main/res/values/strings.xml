@@ -35,4 +35,16 @@
     <string name="no_rides_notice">Tap Here to request a ride for this route</string>
     <string name="choose_your_trip">Choose Your Trip</string>
     <string name="request_ride">Request Ride</string>
+    <string name="apply_promo_code">Apply Promo Code</string>
+    <string name="book">Book</string>
+    <string name="seat">Seat</string>
+    <string name="trip_successfully_booked">Trip Successfully Booked</string>
+    <string name="plan_your_rides">Plan your rides one week \nahead and save money!</string>
+    <string name="learn_more">Learn More</string>
+    <string name="book_your_return_trip">Book Your return trip</string>
+    <string name="view_your_trip_details">view your trip details</string>
+    <plurals name="seats">
+        <item quantity="one">Seat</item>
+        <item quantity="other">Seats</item>
+    </plurals>
 </resources>

@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.swvlclone.availabletrips.AvailableTripsRoute
+import com.example.swvlclone.availabletrips.tripitem.components.TripModel
 import com.example.swvlclone.domain.models.TripLocation
 import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.ui.navigation.TripsDest
@@ -13,6 +14,7 @@ import timber.log.Timber
 
 fun NavGraphBuilder.availableTripsScreen(
     onBackPressed: () -> Unit,
+    onTripItemClick: (TripModel) -> Unit,
 ) {
     composable(
         route = TripsDest.routeWithArgs,
@@ -32,12 +34,13 @@ fun NavGraphBuilder.availableTripsScreen(
         AvailableTripsRoute(
             selectedTripTime = tripTime,
             selectedTripLocation = tripLocation,
-            onBackPressed = onBackPressed
+            onBackPressed = onBackPressed,
+            onTripItemClick = onTripItemClick,
         )
     }
 }
 
- fun NavController.navigateToAvailableTrips(
+fun NavController.navigateToAvailableTrips(
     tripTime: TripTime,
     tripLocation: TripLocation
 ) {
