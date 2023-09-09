@@ -12,6 +12,8 @@ import com.example.swvlclone.auth.mobile.navigation.mobileAuthScreen
 import com.example.swvlclone.auth.mobile.navigation.navigateToMobileAuth
 import com.example.swvlclone.auth.mobile.otp.navigation.navigateToOtp
 import com.example.swvlclone.auth.mobile.otp.navigation.otpScreen
+import com.example.swvlclone.availabletrips.booking.navigation.bookingScreen
+import com.example.swvlclone.availabletrips.booking.navigation.navigateToBooking
 import com.example.swvlclone.availabletrips.navigation.availableTripsScreen
 import com.example.swvlclone.availabletrips.navigation.navigateToAvailableTrips
 import com.example.swvlclone.domain.models.TripTime
@@ -19,6 +21,14 @@ import com.example.swvlclone.home.navigation.homeScreen
 import com.example.swvlclone.home.navigation.navigateToHome
 import com.example.swvlclone.location.navigation.locationScreen
 import com.example.swvlclone.location.navigation.navigateToLocation
+import com.example.swvlclone.settings.navigation.cityScreen
+import com.example.swvlclone.settings.navigation.languageScreen
+import com.example.swvlclone.settings.navigation.navigateToCityChange
+import com.example.swvlclone.settings.navigation.navigateToLanguageChange
+import com.example.swvlclone.settings.navigation.navigateToSocialAccounts
+import com.example.swvlclone.settings.navigation.settingsScreen
+import com.example.swvlclone.settings.navigation.socialAccountsScreen
+import com.example.swvlclone.usertrips.details.navigation.tripDetailsScreen
 
 @Composable
 fun SwvlCloneNavHost(
@@ -29,7 +39,7 @@ fun SwvlCloneNavHost(
     val currentDestination = currentBackStack?.destination
     NavHost(
         navController = navController,
-        startDestination = "auth",
+        startDestination = HomeDest.route,
         modifier = modifier
     ) {
         navigation(route = "auth", startDestination = AuthDest.route) {
@@ -55,7 +65,7 @@ fun SwvlCloneNavHost(
             onLocationClick = { tripTime ->
                 navController.navigateToLocation(tripTime)
             },
-            onDrawerItemClick = { /*route -> navController.navigate(route)*/ }
+            onDrawerItemClick = { route -> navController.navigate(route) }
         )
 
         locationScreen(
@@ -67,10 +77,32 @@ fun SwvlCloneNavHost(
                 )
             }
         )
-
+        //TODO put in a separate nested navigation
         availableTripsScreen(
+            onBackPressed = { navController.popBackStack() },
+            onTripItemClick = { navController.navigateToBooking(it) }
+        )
+        bookingScreen(
             onBackPressed = { navController.popBackStack() }
         )
+
+        tripDetailsScreen()
+
+        settingsScreen(
+            onBackPressed = { navController.popBackStack() },
+            onCityClick = {
+                navController.navigateToCityChange(it)
+            },
+            onLanguageClick = {
+                navController.navigateToLanguageChange(it)
+            },
+            onConnectedAccountsClick = {
+                navController.navigateToSocialAccounts(ArrayList(it))
+            },
+        )
+        cityScreen(onBackPressed = { navController.popBackStack() })
+        languageScreen(onBackPressed = { navController.popBackStack() })
+        socialAccountsScreen(onBackPressed = { navController.popBackStack() })
 
     }
 }

@@ -28,12 +28,14 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
 fun SwvlCloneTopBar(
+    modifier: Modifier = Modifier,
     title: String,
     subtitle: String? = null,
     @DrawableRes icon: Int,
-    onIconClick: () -> Unit = {}
+    onIconClick: () -> Unit
 ) {
     TopAppBar(
+        modifier = modifier,
         title = { AppBarTitle(title = title, subtitle = subtitle ?: "") },
         backgroundColor = Color.Transparent,
         elevation = 0.dp,
@@ -64,7 +66,7 @@ fun AppBarTitle(
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.SpaceBetween,
-//        modifier = modifier.background(MaterialTheme.colorScheme.surface)
+        modifier = modifier
     ) {
         Text(
             text = title,
@@ -90,6 +92,6 @@ fun SwvlTopBarPreview() {
             title = "Hey, User",
             subtitle = "Where are you going?",
             icon = R.drawable.burger_menu_left
-        )
+        ) {}
     }
 }

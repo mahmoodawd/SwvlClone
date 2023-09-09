@@ -2,6 +2,7 @@ package com.example.swvlclone.ui.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.example.swvlclone.settings.navigation.SettingsDest
 
 interface SwvlCloneDestination {
     val route: String
@@ -111,13 +112,6 @@ object PrivateBusDest : SwvlCloneDestination {
         get() = "private_bus"
     override val name: String
         get() = "Private Bus"
-}
-
-object SettingsDest : SwvlCloneDestination {
-    override val route: String
-        get() = "settings"
-    override val name: String
-        get() = "Settings"
 }
 
 object HelpDest : SwvlCloneDestination {

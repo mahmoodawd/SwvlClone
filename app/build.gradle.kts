@@ -65,6 +65,8 @@ dependencies {
 
     //Country Code Picker
     implementation("com.github.jump-sdk:jetpack_compose_country_code_picker_emoji:2.0.8")
+    implementation ("com.canopas.jetcountrypicker:jetcountrypicker:1.0.9")
+
 
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.0")
