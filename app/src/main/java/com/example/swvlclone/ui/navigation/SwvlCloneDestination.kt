@@ -3,6 +3,7 @@ package com.example.swvlclone.ui.navigation
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.swvlclone.settings.navigation.SettingsDest
+import com.example.swvlclone.usertrips.navigation.UserTripsDest
 
 interface SwvlCloneDestination {
     val route: String
@@ -86,12 +87,7 @@ object TripsDest : SwvlCloneDestination {
     )
 }
 
-object YourTripsDest : SwvlCloneDestination {
-    override val route: String
-        get() = "your_trips"
-    override val name: String
-        get() = "Your Trips"
-}
+
 
 object WalletDest : SwvlCloneDestination {
     override val route: String
@@ -130,7 +126,7 @@ object PrivacyCenterDest : SwvlCloneDestination {
 }
 
 val drawerItems = listOf(
-    YourTripsDest,
+    UserTripsDest,
     WalletDest,
     PaymentDest,
     PrivateBusDest,

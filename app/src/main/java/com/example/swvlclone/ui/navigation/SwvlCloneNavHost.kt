@@ -28,7 +28,10 @@ import com.example.swvlclone.settings.navigation.navigateToLanguageChange
 import com.example.swvlclone.settings.navigation.navigateToSocialAccounts
 import com.example.swvlclone.settings.navigation.settingsScreen
 import com.example.swvlclone.settings.navigation.socialAccountsScreen
-import com.example.swvlclone.usertrips.details.navigation.tripDetailsScreen
+import com.example.swvlclone.usertrips.navigation.UserTripsDest
+import com.example.swvlclone.usertrips.navigation.navigateToTripDetails
+import com.example.swvlclone.usertrips.navigation.tripDetailsScreen
+import com.example.swvlclone.usertrips.navigation.userTripsScreen
 
 @Composable
 fun SwvlCloneNavHost(
@@ -61,7 +64,7 @@ fun SwvlCloneNavHost(
         }
 
         homeScreen(
-            currentDestinationRoute = currentDestination?.route ?: YourTripsDest.route,
+            currentDestinationRoute = currentDestination?.route ?: UserTripsDest.route,
             onLocationClick = { tripTime ->
                 navController.navigateToLocation(tripTime)
             },
@@ -86,7 +89,13 @@ fun SwvlCloneNavHost(
             onBackPressed = { navController.popBackStack() }
         )
 
-        tripDetailsScreen()
+        userTripsScreen(
+            onBackPressed = { navController.popBackStack() },
+            onItemClick = { navController.navigateToTripDetails(it) }
+        )
+        tripDetailsScreen(
+            onBackPressed = { navController.popBackStack() }
+        )
 
         settingsScreen(
             onBackPressed = { navController.popBackStack() },
@@ -103,6 +112,7 @@ fun SwvlCloneNavHost(
         cityScreen(onBackPressed = { navController.popBackStack() })
         languageScreen(onBackPressed = { navController.popBackStack() })
         socialAccountsScreen(onBackPressed = { navController.popBackStack() })
+
 
     }
 }
