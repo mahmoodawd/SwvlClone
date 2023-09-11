@@ -14,8 +14,8 @@ object SocialAccountsDest : SwvlCloneDestination {
     override val name: String
         get() = "Social Accounts"
     const val socialAccountsArg = "social_accounts"
-    val routeWithArgs = "${SocialAccountsDest.route}/{$socialAccountsArg}"
-    val arguments = listOf(
+    val routeWithArgs = "${route}/{$socialAccountsArg}"
+    override val arguments = listOf(
         navArgument(name = socialAccountsArg) {
             type = NavType.StringArrayType
         }

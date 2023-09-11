@@ -196,7 +196,7 @@ fun TripTimeBottomSheet(
                 //TODO Get picked day and hour
                 onProceedButtonClick(TripTime(day = "Tomorrow", hour = "06:00 am"))
             }) {
-            Text(text = "Proceed")
+            Text(text = "Proceed".uppercase())
 
         }
     }

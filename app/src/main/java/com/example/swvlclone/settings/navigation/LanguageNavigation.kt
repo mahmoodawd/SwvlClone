@@ -13,9 +13,9 @@ object LanguageDest : SwvlCloneDestination {
         get() = "language_screen"
     override val name: String
         get() = "language"
-    const val languageArg = "language"
-    val routeWithArgs = "${LanguageDest.route}/{$languageArg}"
-    val arguments = listOf(
+    const val languageArg = "current_language"
+    val routeWithArgs = "$route/{$languageArg}"
+    override val arguments = listOf(
         navArgument(name = languageArg) {
             type = NavType.StringType
         }

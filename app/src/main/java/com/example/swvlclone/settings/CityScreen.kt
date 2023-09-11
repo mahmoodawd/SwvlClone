@@ -133,12 +133,15 @@ fun CityChanger(
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
-        }, containerColor = Color.White, onItemSelected = {
-            selectedCountry = it.name
-            openBottomSheet = false
-        }, onDismissRequest = {
-            openBottomSheet = false
-        })
+        },
+            containerColor = Color.White,
+            onItemSelected = {
+                selectedCountry = it.name
+                openBottomSheet = false
+            },
+            onDismissRequest = {
+                openBottomSheet = false
+            })
     }
 }
 

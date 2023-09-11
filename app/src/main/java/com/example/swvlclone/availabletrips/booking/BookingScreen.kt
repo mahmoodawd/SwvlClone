@@ -111,8 +111,8 @@ fun BookingScreen(
                             .fillMaxWidth()
                             .wrapContentHeight()
                     ) {
-                        PaymentTypeSection(onclick = {}, modifier = Modifier.weight(1f))
-                        SeatsSection(modifier = Modifier.weight(1f))
+                        PaymentTypeSection(onclick = {}, modifier = Modifier.weight(0.5f))
+                        SeatsSection(modifier = Modifier.weight(0.5f))
                     }
                     PriceSection()
                     RefundNotice(onclick = {})

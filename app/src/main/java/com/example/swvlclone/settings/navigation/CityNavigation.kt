@@ -14,8 +14,8 @@ object CityDest : SwvlCloneDestination {
     override val name: String
         get() = "City"
     const val cityArg = "city"
-    val routeWithArgs = "${CityDest.route}/{$cityArg}"
-    val arguments = listOf(
+    val routeWithArgs = "${route}/{$cityArg}"
+    override val arguments = listOf(
         navArgument(name = cityArg) {
             type = NavType.StringType
         }

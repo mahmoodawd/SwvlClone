@@ -100,7 +100,6 @@ fun HomeScreen(
         ModalBottomSheetLayout(
             sheetState = bottomSheetState,
             sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
-
             sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
             sheetElevation = 4.dp,
             sheetContent = {
@@ -108,7 +107,6 @@ fun HomeScreen(
                     onProceedButtonClick = { tripTime ->
                         coroutineScope.launch { bottomSheetState.hide() }
                         selectedTripTime = tripTime
-
                     }
                 )
             }) {

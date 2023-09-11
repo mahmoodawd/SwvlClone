@@ -5,7 +5,15 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.home.HomeRoute
-import com.example.swvlclone.ui.navigation.HomeDest
+import com.example.swvlclone.ui.navigation.SwvlCloneDestination
+import com.example.swvlclone.ui.navigation.authGraphRoute
+
+
+object HomeDest : SwvlCloneDestination {
+    override val route: String
+        get() = "home_screen"
+
+}
 
 fun NavGraphBuilder.homeScreen(
     currentDestinationRoute: String,
@@ -23,6 +31,6 @@ fun NavGraphBuilder.homeScreen(
 
 fun NavController.navigateToHome() {
     navigate(HomeDest.route) {
-        popUpTo("auth")
+        popUpTo(authGraphRoute)
     }
 }

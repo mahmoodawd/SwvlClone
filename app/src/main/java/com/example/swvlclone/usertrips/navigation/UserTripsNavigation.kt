@@ -1,6 +1,5 @@
 package com.example.swvlclone.usertrips.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.swvlclone.availabletrips.tripitem.components.TripModel
@@ -9,7 +8,7 @@ import com.example.swvlclone.usertrips.UserTripsRoute
 
 object UserTripsDest : SwvlCloneDestination {
     override val route: String
-        get() = "your_trips"
+        get() = "your_trips_screen"
     override val name: String
         get() = "Your Trips"
 }
