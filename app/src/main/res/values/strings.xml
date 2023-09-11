@@ -63,6 +63,14 @@
     <string name="select_country_text">Select Country</string>
     <string name="search_city">Search City</string>
     <string name="change_city">Change City</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="add_card">Add Card</string>
+    <string name="wallet">Wallet</string>
+    <string name="add_credit">Add Credit</string>
+    <string name="privacy_center">Privacy Center</string>
+    <string name="packages">Packages</string>
+    <string name="your_email">What is your email?</string>
+    <string name="submit">Submit</string>
     <plurals name="seats">
         <item quantity="one">Seat</item>
         <item quantity="other">Seats</item>
