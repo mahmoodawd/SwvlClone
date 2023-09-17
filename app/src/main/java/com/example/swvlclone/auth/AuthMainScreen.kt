@@ -1,4 +1,4 @@
-package com.example.swvlclone.auth.main
+package com.example.swvlclone.auth
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -23,6 +23,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -33,34 +35,77 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.lifecycleScope
 import com.example.swvlclone.R
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
+import com.stevdzasan.onetap.OneTapSignInWithGoogle
+import com.stevdzasan.onetap.rememberOneTapSignInState
+import kotlinx.coroutines.launch
+import timber.log.Timber
+
 
 @Composable
 fun AuthMainRoute(
     modifier: Modifier = Modifier,
     onPhoneFieldClick: () -> Unit,
-    /*This Route just to gain Ref to the related ViewModel
-        and pass states and events to down to the screen
-     */
+    onGoogleSignInSuccess: () -> Unit,
+    viewModel: AuthViewModel = hiltViewModel(),
+    googleAuthUiClient: AuthUiClient
 ) {
-// Collecting States from the ViewModel should Go here!
+    val authUiState by viewModel.uiState
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleScope = lifecycleOwner.lifecycleScope
+    
+//What happens after login
+    LaunchedEffect(key1 = authUiState.isSuccessful) {
+        if (authUiState.isSuccessful) {
+            Timber.i("SignIn Successful")
+            onGoogleSignInSuccess()
+            viewModel.resetState()
+        }
+    }
+    val oneTapState = rememberOneTapSignInState()
+    OneTapSignInWithGoogle(
+        state = oneTapState,
+        clientId = stringResource(id = R.string.default_web_client_id),
+        onTokenIdReceived = { tokenId ->
+            Timber.d("LOG: Token Received: $tokenId")
+            lifecycleScope.launch {
+                val signInResult = googleAuthUiClient.signInWithIdToken(tokenId)
+                viewModel.onSignInResult(signInResult)
+            }
+        },
+        onDialogDismissed = { message ->
+            Timber.d("LOG: DIALOG DISMISSED $message")
+        }
+    )
 
     AuthScreen(
         onPhoneFieldClick = onPhoneFieldClick,
-        modifier = modifier
+        modifier = modifier,
+        state = authUiState,
+        onGoogleSignIn = { oneTapState.open() }
     )
 }
 
 @Composable
 fun AuthScreen(
     modifier: Modifier = Modifier,
-    onPhoneFieldClick: () -> Unit
+    onPhoneFieldClick: () -> Unit,
+    state: SignInState,
+    onGoogleSignIn: () -> Unit
 ) {
+
+    LaunchedEffect(key1 = state.isError) {
+        Timber.e(state.isError)
+        //Should Display Snackbar with the error
+    }
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -111,7 +156,10 @@ fun AuthScreen(
                         onPhoneFieldClick()
                     }
             )
-            SocialSection()
+            SocialSection(
+                onGoogleSignIn = onGoogleSignIn,
+                onFacebookSignIn = {}
+            )
         }
     }
 }
@@ -119,7 +167,9 @@ fun AuthScreen(
 
 @Composable
 fun SocialSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onGoogleSignIn: () -> Unit,
+    onFacebookSignIn: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
@@ -135,8 +185,16 @@ fun SocialSection(
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            SocialButton(label = R.string.facebook, icon = R.drawable.facebook)
-            SocialButton(label = R.string.google, icon = R.drawable.google)
+            SocialButton(
+                label = R.string.facebook,
+                icon = R.drawable.facebook,
+                onClick = onFacebookSignIn
+            )
+            SocialButton(
+                label = R.string.google,
+                icon = R.drawable.google,
+                onClick = onGoogleSignIn
+            )
         }
     }
 }
@@ -151,7 +209,8 @@ fun SocialButton(
     Button(
         modifier = modifier,
         colors = ButtonDefaults.outlinedButtonColors(),
-        onClick = { onClick() }) {
+        onClick = onClick
+    ) {
         Image(
             painter = painterResource(icon),
             contentDescription = stringResource(id = label),
@@ -172,6 +231,10 @@ fun SocialButton(
 @Composable
 fun AuthScreenPreview() {
     SwvlCloneTheme {
-        AuthScreen() {}
+        AuthScreen(
+            onPhoneFieldClick = {},
+            onGoogleSignIn = {},
+            state = SignInState()
+        )
     }
 }

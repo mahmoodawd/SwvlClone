@@ -1,18 +1,18 @@
 package com.example.swvlclone.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navigation
-import com.example.swvlclone.auth.main.navigation.AuthDest
-import com.example.swvlclone.auth.main.navigation.authScreen
-import com.example.swvlclone.auth.mobile.navigation.mobileAuthScreen
-import com.example.swvlclone.auth.mobile.navigation.navigateToMobileAuth
-import com.example.swvlclone.auth.mobile.otp.navigation.navigateToOtp
-import com.example.swvlclone.auth.mobile.otp.navigation.otpScreen
+import com.example.swvlclone.SwvlCloneAppState
+import com.example.swvlclone.auth.AuthUiClient
+import com.example.swvlclone.auth.navigation.AuthDest
+import com.example.swvlclone.auth.navigation.authScreen
+import com.example.swvlclone.auth.navigation.mobileAuthScreen
+import com.example.swvlclone.auth.navigation.navigateToMobileAuth
+import com.example.swvlclone.auth.navigation.navigateToOtp
+import com.example.swvlclone.auth.navigation.otpScreen
 import com.example.swvlclone.availabletrips.booking.navigation.bookingScreen
 import com.example.swvlclone.availabletrips.booking.navigation.navigateToBooking
 import com.example.swvlclone.availabletrips.navigation.availableTripsScreen
@@ -56,18 +56,25 @@ const val paymentGraphRoute = "payment"
 @Composable
 fun SwvlCloneNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    appState: SwvlCloneAppState,
+    startDestination: String = authGraphRoute, //Should be changed upon logged in status
+    googleAuthUiClient: AuthUiClient
+
 ) {
-    val currentBackStack by navController.currentBackStackEntryAsState()
-    val currentDestination = currentBackStack?.destination
+
+    val currentDestination = appState.currentDestination
+    val navController = appState.navController
+
     NavHost(
         navController = navController,
-        startDestination = HomeDest.route,
+        startDestination = startDestination,
         modifier = modifier
     ) {
         navigation(route = authGraphRoute, startDestination = AuthDest.route) {
-
-            authScreen(onPhoneFieldClick = { navController.navigateToMobileAuth() })
+            authScreen(
+                googleAuthUiClient = googleAuthUiClient,
+                onPhoneFieldClick = { navController.navigateToMobileAuth() },
+                onSignInSuccess = { navController.navigateToHome() })
 
             mobileAuthScreen(
                 onForwardPressed = { phoneNumber ->
@@ -137,6 +144,7 @@ fun SwvlCloneNavHost(
         navigation(route = settingsGraphRoute, startDestination = SettingsDest.route) {
 
             settingsScreen(
+                googleAuthUiClient = googleAuthUiClient,
                 onBackPressed = {
                     navController.popBackStack(
                         route = settingsGraphRoute,
@@ -152,6 +160,13 @@ fun SwvlCloneNavHost(
                 onConnectedAccountsClick = {
                     navController.navigateToSocialAccounts(ArrayList(it))
                 },
+                onSignOut = {
+                    navController.navigate(AuthDest.route) {
+                        popUpTo(HomeDest.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
             cityScreen(onBackPressed = { navController.popBackStack() })
             languageScreen(onBackPressed = { navController.popBackStack() })

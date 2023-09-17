@@ -1,9 +1,10 @@
-package com.example.swvlclone.auth.main.navigation
+package com.example.swvlclone.auth.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.swvlclone.auth.main.AuthMainRoute
+import com.example.swvlclone.auth.AuthMainRoute
+import com.example.swvlclone.auth.AuthUiClient
 import com.example.swvlclone.ui.navigation.SwvlCloneDestination
 
 object AuthDest : SwvlCloneDestination {
@@ -13,9 +14,17 @@ object AuthDest : SwvlCloneDestination {
         get() = "Auth"
 }
 
-fun NavGraphBuilder.authScreen(onPhoneFieldClick: () -> Unit) {
+fun NavGraphBuilder.authScreen(
+    onPhoneFieldClick: () -> Unit,
+    onSignInSuccess: () -> Unit,
+    googleAuthUiClient: AuthUiClient
+) {
     composable(route = AuthDest.route) {
-        AuthMainRoute(onPhoneFieldClick = { onPhoneFieldClick() })
+        AuthMainRoute(
+            onPhoneFieldClick = onPhoneFieldClick,
+            onGoogleSignInSuccess = onSignInSuccess,
+            googleAuthUiClient = googleAuthUiClient
+        )
     }
 }
 

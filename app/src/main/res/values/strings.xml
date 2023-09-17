@@ -71,6 +71,7 @@
     <string name="packages">Packages</string>
     <string name="your_email">What is your email?</string>
     <string name="submit">Submit</string>
+    <string name="error">Error</string>
     <plurals name="seats">
         <item quantity="one">Seat</item>
         <item quantity="other">Seats</item>

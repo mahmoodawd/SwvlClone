@@ -1,11 +1,11 @@
-package com.example.swvlclone.auth.mobile.otp.navigation
+package com.example.swvlclone.auth.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.swvlclone.auth.mobile.otp.OtpRoute
+import com.example.swvlclone.auth.OtpRoute
 import com.example.swvlclone.ui.navigation.SwvlCloneDestination
 
 object OtpDest : SwvlCloneDestination {

@@ -1,4 +1,4 @@
-package com.example.swvlclone.auth.mobile.otp
+package com.example.swvlclone.auth
 
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween

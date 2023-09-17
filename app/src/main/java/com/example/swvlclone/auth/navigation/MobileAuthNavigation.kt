@@ -1,9 +1,9 @@
-package com.example.swvlclone.auth.mobile.navigation
+package com.example.swvlclone.auth.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.swvlclone.auth.mobile.MobileAuthRoute
+import com.example.swvlclone.auth.MobileAuthRoute
 import com.example.swvlclone.ui.navigation.SwvlCloneDestination
 
 

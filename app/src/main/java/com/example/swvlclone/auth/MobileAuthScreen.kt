@@ -1,4 +1,4 @@
-package com.example.swvlclone.auth.mobile
+package com.example.swvlclone.auth
 
 import android.content.Context
 import android.widget.Toast
@@ -80,10 +80,10 @@ fun MobileAuthScreen(
             .padding(16.dp)
     ) {
         var fullPhoneNumber by remember {
-            mutableStateOf("")
+            mutableStateOf("+201141680631")
         }
         var isPhoneValid by remember {
-            mutableStateOf(false)
+            mutableStateOf(true)
         }
         BackButton(
             onClick = {
@@ -91,7 +91,7 @@ fun MobileAuthScreen(
             },
             modifier = Modifier.align(Alignment.Start)
         )
-        TogiCountryCodePicker(
+        /*TogiCountryCodePicker(
             fallbackCountryCode = "+20",
             onValueChange = { (code, phone), isValid ->
                 fullPhoneNumber = code + phone
@@ -99,7 +99,7 @@ fun MobileAuthScreen(
             },
             modifier = Modifier
                 .padding(vertical = 16.dp, horizontal = 8.dp)
-        )
+        )*/
         TermsAndPrivacyText(
             modifier = Modifier
                 .padding(vertical = 16.dp, horizontal = 16.dp)

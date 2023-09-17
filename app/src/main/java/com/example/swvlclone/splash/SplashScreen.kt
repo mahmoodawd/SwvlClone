@@ -1,4 +1,4 @@
-package com.example.swvlclone.ui
+package com.example.swvlclone.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
