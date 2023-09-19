@@ -64,13 +64,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material:1.6.0-alpha04")
+    implementation("androidx.compose.material:material:1.6.0-alpha05")
     implementation("androidx.compose.material:material-icons-extended")
 
 
     //Country Code Picker
-    implementation("com.github.jump-sdk:jetpack_compose_country_code_picker_emoji:2.0.8")
     implementation("com.canopas.jetcountrypicker:jetcountrypicker:1.0.9")
+    /*implementation("com.github.jump-sdk:jetpack_compose_country_code_picker_emoji:2.0.8")
+    implementation ("com.github.togisoft:jetpack_compose_country_code_picker:1.1.4")*/
 
     //Coil for network images
     implementation("io.coil-kt:coil-compose:2.4.0")
@@ -101,6 +102,7 @@ dependencies {
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48")
+    implementation("com.googlecode.libphonenumber:libphonenumber:8.13.20")
     kapt("com.google.dagger:hilt-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 

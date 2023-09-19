@@ -26,7 +26,7 @@ fun NavGraphBuilder.otpScreen(onBackPressed: () -> Unit, onForwardPressed: () ->
         val number = it.arguments?.getString(OtpDest.mobileNumberArg)
         OtpRoute(
             phoneNumber = number!!,
-            onForwardClick = onForwardPressed,
+            onSignInSuccess = onForwardPressed,
             onBackPressed = onBackPressed
         )
     }

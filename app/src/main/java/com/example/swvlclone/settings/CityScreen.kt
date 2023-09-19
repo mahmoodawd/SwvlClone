@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import com.canopas.campose.countrypicker.CountryPickerBottomSheet
 import com.canopas.campose.countrypicker.localeToEmoji
 import com.example.swvlclone.R
+import com.example.swvlclone.comon.utils.getCountryCode
 import com.example.swvlclone.ui.components.BackButton
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 import java.util.Locale
@@ -102,13 +103,13 @@ fun CityChanger(
 ) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     var selectedCountry by remember { mutableStateOf(currentCountry) }
+    val countryCode = getCountryCode(selectedCountry)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        val countryCode = getCountryCode(selectedCountry)
         Text(
             text = localeToEmoji(countryCode ?: Locale.ROOT.country),
             modifier = Modifier.padding(8.dp)
@@ -203,13 +204,4 @@ private val cityList = listOf(
     "Cairo", "Alexandria", "Fayoum"
 )
 
-fun getCountryCode(countryName: String): String? {
-    val locales = Locale.getAvailableLocales()
-    for (locale in locales) {
-        val displayName = locale.displayCountry
-        if (displayName.equals(countryName, ignoreCase = true)) {
-            return locale.country
-        }
-    }
-    return null
-}
+

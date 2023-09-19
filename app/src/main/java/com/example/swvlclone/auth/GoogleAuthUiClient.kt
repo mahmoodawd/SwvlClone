@@ -95,6 +95,7 @@ fun FirebaseUser.toUserData(): UserData =
         userName = displayName,
         profilePhotoUrl = photoUrl.toString(),
         email = email,
+        phoneNumber = phoneNumber
 
-        )
+    )
 

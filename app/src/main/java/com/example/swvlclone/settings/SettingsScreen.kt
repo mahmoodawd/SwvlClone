@@ -1,7 +1,6 @@
 package com.example.swvlclone.settings
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,7 +25,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
-import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
@@ -39,24 +37,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
-import coil.request.ImageRequest
 import com.example.swvlclone.R
 import com.example.swvlclone.auth.AuthUiClient
 import com.example.swvlclone.ui.components.SwvlCloneTopBar
@@ -100,6 +92,7 @@ fun SettingsRoute(
             name = userData?.userName ?: "NO_Name"
             email = userData?.email ?: "NO_Email"
             avatar = userData?.profilePhotoUrl ?: ""
+            mobile = userData?.phoneNumber ?: ""
         },
         onBackPressed = onBackPressed,
         onCityClick = onCityClick,
@@ -235,10 +228,10 @@ fun UserNameSection(
                     )
                 }
             )
-           /* Icon(
-                imageVector = avatar, contentDescription = "User Image",
-                modifier = Modifier.size(48.dp)
-            )*/
+            /* Icon(
+                 imageVector = avatar, contentDescription = "User Image",
+                 modifier = Modifier.size(48.dp)
+             )*/
             Column {
                 Text(
                     text = stringResource(R.string.name),
@@ -380,7 +373,7 @@ fun SignOutSheetContent(
 data class UserPrefs(
     var avatar: String,
     var name: String,
-    val mobile: String,
+    var mobile: String,
     var email: String,
     val city: String,
     val language: String,

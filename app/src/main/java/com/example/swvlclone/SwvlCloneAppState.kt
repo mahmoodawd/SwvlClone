@@ -3,9 +3,11 @@ package com.example.swvlclone
 import android.content.res.Resources
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -22,6 +24,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun rememberAppState(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     navController: NavHostController = rememberNavController(),
     snackbarManager: SnackbarManager = SnackbarManager,
     resources: Resources = resources(),
@@ -31,6 +34,7 @@ fun rememberAppState(
         scaffoldState = scaffoldState,
         navController = navController,
         snackbarManager = snackbarManager,
+        snackbarHostState = snackbarHostState,
         resources = resources,
         coroutineScope = coroutineScope
     )
@@ -45,16 +49,18 @@ fun resources(): Resources {
 @Stable
 class SwvlCloneAppState(
     val scaffoldState: ScaffoldState,
+    val snackbarHostState: SnackbarHostState,
     val navController: NavHostController,
     private val snackbarManager: SnackbarManager,
     private val resources: Resources,
     coroutineScope: CoroutineScope
 ) {
+
     init {
         coroutineScope.launch {
             snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
                 val text = snackbarMessage.toMessage(resources)
-                scaffoldState.snackbarHostState.showSnackbar(text)
+                snackbarHostState.showSnackbar(text)
             }
         }
     }

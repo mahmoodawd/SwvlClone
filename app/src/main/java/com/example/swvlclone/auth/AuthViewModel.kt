@@ -12,6 +12,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         private set
 
     fun onSignInResult(result: SignInResult) {
+
         uiState.value = uiState.value.copy(
             isSuccessful = result.user != null,
             isError = result.errorMessage

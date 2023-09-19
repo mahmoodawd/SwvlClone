@@ -61,7 +61,7 @@ fun AuthMainRoute(
     val authUiState by viewModel.uiState
     val lifecycleOwner = LocalLifecycleOwner.current
     val lifecycleScope = lifecycleOwner.lifecycleScope
-    
+
 //What happens after login
     LaunchedEffect(key1 = authUiState.isSuccessful) {
         if (authUiState.isSuccessful) {
@@ -89,7 +89,7 @@ fun AuthMainRoute(
     AuthScreen(
         onPhoneFieldClick = onPhoneFieldClick,
         modifier = modifier,
-        state = authUiState,
+        signInState = authUiState,
         onGoogleSignIn = { oneTapState.open() }
     )
 }
@@ -98,12 +98,12 @@ fun AuthMainRoute(
 fun AuthScreen(
     modifier: Modifier = Modifier,
     onPhoneFieldClick: () -> Unit,
-    state: SignInState,
+    signInState: SignInState,
     onGoogleSignIn: () -> Unit
 ) {
 
-    LaunchedEffect(key1 = state.isError) {
-        Timber.e(state.isError)
+    LaunchedEffect(key1 = signInState.isError) {
+        Timber.e(signInState.isError)
         //Should Display Snackbar with the error
     }
     Box(
@@ -234,7 +234,7 @@ fun AuthScreenPreview() {
         AuthScreen(
             onPhoneFieldClick = {},
             onGoogleSignIn = {},
-            state = SignInState()
+            signInState = SignInState()
         )
     }
 }

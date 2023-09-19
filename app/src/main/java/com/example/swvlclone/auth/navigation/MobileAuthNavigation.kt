@@ -22,7 +22,7 @@ fun NavGraphBuilder.mobileAuthScreen(
     composable(route = MobileAuthDest.route) {
         MobileAuthRoute(
             onBackPressed = onBackPressed,
-            onForwardButtonClick = { onForwardPressed(it) }
+            onOtpSent = { onForwardPressed(it) }
         )
     }
 }

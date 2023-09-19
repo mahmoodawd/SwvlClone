@@ -209,8 +209,8 @@ private fun OtpEntry(
         targetValue = when {
             isError -> MaterialTheme.colorScheme.error
             !enabled -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = ContentAlpha.disabled)
-            transformedText.isNotEmpty() -> MaterialTheme.colorScheme.primary
-            else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = ContentAlpha.medium)
+            transformedText.isNotEmpty() -> MaterialTheme.colorScheme.outline
+            else -> MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.medium)
         },
         label = "textColor"
     )
