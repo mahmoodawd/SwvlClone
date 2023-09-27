@@ -1,13 +1,12 @@
 package com.example.swvlclone
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import com.example.swvlclone.auth.AuthUiClient
-import com.example.swvlclone.home.navigation.HomeDest
 import com.example.swvlclone.ui.navigation.authGraphRoute
+import com.example.swvlclone.ui.navigation.homeGraphRoute
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SwvlCloneTheme {
                 val startDestination = if (googleAuthUiClient.getSignedInUser() != null) {
-                    HomeDest.route
+                    homeGraphRoute
                 } else {
                     authGraphRoute
                 }

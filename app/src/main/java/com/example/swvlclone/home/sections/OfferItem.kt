@@ -2,12 +2,14 @@ package com.example.swvlclone.home.sections
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,15 +26,19 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
 fun OfferItem(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     val bgColor = Color(0xFF209BCD)
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .wrapContentHeight()
             .background(color = bgColor, shape = RoundedCornerShape(16.dp))
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .clickable {
+                onClick()
+            },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -41,7 +47,7 @@ fun OfferItem(
             text = "We Have Made the 'Extra \n Packages' Just for You!\n Click ->",
             softWrap = true,
             color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold
         )
         Image(
@@ -56,7 +62,7 @@ fun OfferItem(
 @Composable
 private fun OfferItemPreview() {
     SwvlCloneTheme {
-        OfferItem()
+        OfferItem(){}
     }
 
 }

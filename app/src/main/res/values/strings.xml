@@ -30,7 +30,7 @@
     <string name="date">Date</string>
     <string name="from_where">From Where?</string>
     <string name="saved_places">Saved Places</string>
-    <string name="use_map">Set Location on Map</string>
+    <string name="set_location_on_map">Set Location on Map</string>
     <string name="no_rides">No rides available</string>
     <string name="no_rides_notice">Tap Here to request a ride for this route</string>
     <string name="choose_your_trip">Choose Your Trip</string>
@@ -73,6 +73,12 @@
     <string name="submit">Submit</string>
     <string name="error">An Error occurred</string>
     <string name="invalid_phone_number">Invalid Phone Number</string>
+    <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="where_are_you_going">Where are you going?</string>
+    <string name="hey">"Hey, "</string>
+    <string name="let_go">Let\'s Go!</string>
+    <string name="show_trips_starting_from">Show Trips Starting From</string>
     <plurals name="seats">
         <item quantity="one">Seat</item>
         <item quantity="other">Seats</item>

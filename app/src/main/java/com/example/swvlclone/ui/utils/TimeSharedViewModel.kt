@@ -12,7 +12,7 @@ class TimeSharedViewModel(
 ) : ViewModel() {
 
     //TODO should be set to current date and time
-    private val _sharedTime = MutableStateFlow(
+   /* private val _sharedTime = MutableStateFlow(
         TripTime(day = "", hour = "")
     )
     val sharedTime: StateFlow<TripTime> = _sharedTime.asStateFlow()
@@ -20,5 +20,5 @@ class TimeSharedViewModel(
 
     fun setTime(time: TripTime) {
         _sharedTime.value = time
-    }
+    }*/
 }

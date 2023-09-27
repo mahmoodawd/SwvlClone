@@ -34,7 +34,7 @@ fun MapSection(
     ) {
         Icon(
             imageVector = Icons.Default.PinDrop,
-            contentDescription = stringResource(id = R.string.use_map),
+            contentDescription = stringResource(id = R.string.set_location_on_map),
             tint = MaterialTheme.colorScheme.outline,
             modifier = Modifier
                 .size(48.dp)
@@ -42,7 +42,7 @@ fun MapSection(
         )
 
         Text(
-            text = stringResource(id = R.string.use_map),
+            text = stringResource(id = R.string.set_location_on_map),
             fontWeight = FontWeight.Bold
         )
     }

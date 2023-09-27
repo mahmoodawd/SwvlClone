@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +33,8 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
 fun TripsSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: () -> Unit,
 ) {
     LazyRow(
         modifier = modifier
@@ -45,7 +47,8 @@ fun TripsSection(
             TripTypeItem(
                 title = tripItem.title,
                 subtitle = tripItem.subtitle,
-                icon = tripItem.icon
+                icon = tripItem.icon,
+                onClick = onItemClick
             )
         }
 
@@ -57,7 +60,8 @@ fun TripTypeItem(
     modifier: Modifier = Modifier,
     @StringRes title: Int,
     @StringRes subtitle: Int,
-    @DrawableRes icon: Int
+    @DrawableRes icon: Int,
+    onClick: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,11 +73,12 @@ fun TripTypeItem(
             contentDescription = stringResource(id = subtitle),
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
-                .size(75.dp)
+                .size(48.dp)
                 .shadow(shape = CircleShape, elevation = 8.dp, clip = true)
                 .background(Color.White)
                 .clip(CircleShape)
                 .padding(4.dp)
+                .clickable { onClick() }
         )
         Text(
             text = stringResource(id = title),
@@ -101,22 +106,10 @@ fun TripTypeItem(
 @Composable
 fun TripTypesPreview() {
     SwvlCloneTheme {
-        TripsSection()
+        TripsSection() {}
     }
 }
 
-@Preview
-@Composable
-fun TripTypeItemPreview() {
-    SwvlCloneTheme {
-        TripTypeItem(
-            title = R.string.daily,
-            subtitle = R.string.daily_desc,
-            icon = R.drawable.bus_logo
-        )
-    }
-
-}
 
 private val tripsTypesItems = listOf(
     R.drawable.mini_bus to R.string.daily to R.string.daily_desc,

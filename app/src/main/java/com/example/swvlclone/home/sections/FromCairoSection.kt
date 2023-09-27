@@ -1,9 +1,11 @@
 package com.example.swvlclone.home.sections
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,12 +26,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.SubcomposeAsyncImage
 import com.example.swvlclone.R
+import com.example.swvlclone.comon.composeext.shimmerEffect
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
 @Composable
-fun BottomSection(
-    modifier: Modifier = Modifier
+fun FromCairoSection(
+    modifier: Modifier = Modifier,
+    onCityClick: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -47,10 +52,11 @@ fun BottomSection(
         )
         LazyRow {
             items(destinations) { destination ->
-                DestinationItem(
+                DestinationCityItem(
                     location = destination.location,
                     price = destination.price,
-                    image = destination.image
+                    imageUrl = destination.imageUrl,
+                    onClick = onCityClick,
                 )
             }
         }
@@ -60,25 +66,44 @@ fun BottomSection(
 
 
 @Composable
-private fun DestinationItem(
+private fun DestinationCityItem(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     @StringRes location: Int,
     price: Int,
-    @DrawableRes image: Int
+    imageUrl: String
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
-        Image(
-            painter = painterResource(id = image),
+        SubcomposeAsyncImage(
+            model = imageUrl,
             contentDescription = stringResource(id = location),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .padding(vertical = 8.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .size(150.dp)
+                .size(100.dp)
+                .clickable { onClick() },
+            loading = {
+                Box(
+                    modifier = Modifier
+                        .padding(vertical = 8.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .size(100.dp)
+                        .shimmerEffect()
+                )
+            },
+            error = {
+                Image(
+                    painter = painterResource(id = R.drawable.swvl_seeklogo),
+                    contentDescription = null,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.background(MaterialTheme.colorScheme.primary)
+                )
+            }
         )
         Text(
             text = stringResource(id = location),
@@ -103,35 +128,24 @@ private fun DestinationItem(
 @Composable
 private fun BottomSectionPreview() {
     SwvlCloneTheme {
-        BottomSection()
+        FromCairoSection() {}
     }
 }
 
-@Preview
-@Composable
-private fun DestinationItemPreview() {
-    SwvlCloneTheme {
-        DestinationItem(
-            location = R.string.travel_from_cairo,
-            price = 130,
-            image = R.drawable.hurghada,
-        )
-    }
-}
 
 private val destinations = listOf(
-    R.string.alex to 130 to R.drawable.hurghada,
-    R.string.hurghada to 265 to R.drawable.hurghada,
-    R.string.dahab to 340 to R.drawable.traffic,
-    R.string.mansura to 95 to R.drawable.hurghada,
-    R.string.ismailia to 85 to R.drawable.hurghada,
-    R.string.tanta to 75 to R.drawable.traffic,
+    R.string.alex to 130 to "https://www.introducingegypt.com/f/egipto/egipto/galeria/big/alejandria.jpg",
+    R.string.hurghada to 265 to "https://www.introducingegypt.com/f/egipto/egipto/galeria/big/hurghada.jpg",
+    R.string.dahab to 340 to "https://images.unsplash.com/photo-1628238452386-b916aa9e4443?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    R.string.mansura to 95 to "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Sunset_in_Mansoura.JPG/275px-Sunset_in_Mansoura.JPG",
+    R.string.ismailia to 85 to "https://images.unsplash.com/photo-1664182770311-2781bcfc2ecc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+    R.string.tanta to 75 to "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Tanta-1.jpg/275px-Tanta-1.jpg",
 ).map {
-    DestinationModel(location = it.first.first, price = it.first.second, image = it.second)
+    DestinationModel(location = it.first.first, price = it.first.second, imageUrl = it.second)
 }
 
 data class DestinationModel(
     @StringRes val location: Int,
     val price: Int,
-    @DrawableRes val image: Int
+    val imageUrl: String
 )

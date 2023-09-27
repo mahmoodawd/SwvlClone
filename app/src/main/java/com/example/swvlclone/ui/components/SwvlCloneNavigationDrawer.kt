@@ -12,22 +12,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.SubcomposeAsyncImage
 import com.example.swvlclone.ui.navigation.SwvlCloneDestination
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
 
@@ -35,7 +37,9 @@ import com.example.swvlclone.ui.theme.SwvlCloneTheme
 fun SwvlCloneNavigationDrawer(
     items: List<SwvlCloneDestination>,
     onItemClick: (String) -> Unit,
-    currentDestination: String
+    currentDestination: String,
+    userName: String,
+    userPhotoUrl: String,
 ) {
     Column(
         modifier = Modifier
@@ -44,8 +48,8 @@ fun SwvlCloneNavigationDrawer(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         DrawerHeader(
-            title = "UserName",
-            icon = Icons.Rounded.Person,
+            title = userName,
+            photo = userPhotoUrl,
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -69,7 +73,7 @@ fun SwvlCloneNavigationDrawer(
 fun DrawerHeader(
     modifier: Modifier = Modifier,
     title: String,
-    icon: ImageVector
+    photo: String
 ) {
     Box(
         modifier
@@ -84,9 +88,20 @@ fun DrawerHeader(
                 .padding(start = 16.dp, end = 20.dp)
                 .fillMaxSize()
         ) {
-            Icon(
-                imageVector = icon, contentDescription = "User Image",
-                modifier = Modifier.size(42.dp)
+            SubcomposeAsyncImage(
+                model = photo,
+                contentDescription = title,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(48.dp)
+                    .padding(8.dp),
+                loading = {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.scale(0.5f)
+                    )
+                }
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -130,9 +145,12 @@ fun DrawerItem(
 @Composable
 private fun UserAvatarPreview() {
     SwvlCloneTheme {
+        Button(onClick = { /*TODO*/ }) {
+
+        }
         DrawerHeader(
             title = "UserName",
-            icon = Icons.Rounded.Person,
+            photo = "",
         )
     }
 }

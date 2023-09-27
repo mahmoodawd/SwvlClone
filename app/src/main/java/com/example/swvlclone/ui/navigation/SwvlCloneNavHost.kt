@@ -1,7 +1,6 @@
 package com.example.swvlclone.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navigation
@@ -20,11 +19,13 @@ import com.example.swvlclone.availabletrips.navigation.navigateToAvailableTrips
 import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.home.navigation.HomeDest
 import com.example.swvlclone.home.navigation.homeScreen
-import com.example.swvlclone.home.navigation.navigateToHome
+import com.example.swvlclone.home.navigation.navigateToSaveLocation
+import com.example.swvlclone.home.navigation.saveLocationScreen
 import com.example.swvlclone.location.navigation.LocationDest
 import com.example.swvlclone.location.navigation.locationScreen
 import com.example.swvlclone.location.navigation.navigateToLocation
 import com.example.swvlclone.packages.navigation.PackagesDest
+import com.example.swvlclone.packages.navigation.navigateToPackages
 import com.example.swvlclone.packages.navigation.packagesScreen
 import com.example.swvlclone.payment.navigation.addCardScreen
 import com.example.swvlclone.payment.navigation.navigateToAddCard
@@ -44,6 +45,7 @@ import com.example.swvlclone.usertrips.navigation.UserTripsDest
 import com.example.swvlclone.usertrips.navigation.navigateToTripDetails
 import com.example.swvlclone.usertrips.navigation.tripDetailsScreen
 import com.example.swvlclone.usertrips.navigation.userTripsScreen
+import timber.log.Timber
 
 
 const val authGraphRoute = "auth"
@@ -51,13 +53,14 @@ const val availableTripsGraphRoute = "available_trips"
 const val userTripsGraphRoute = "user_trips"
 const val settingsGraphRoute = "settings"
 const val paymentGraphRoute = "payment"
+const val homeGraphRoute = "home"
 
 
 @Composable
 fun SwvlCloneNavHost(
     modifier: Modifier = Modifier,
     appState: SwvlCloneAppState,
-    startDestination: String = authGraphRoute, //Should be changed upon logged in status
+    startDestination: String = authGraphRoute,
     googleAuthUiClient: AuthUiClient
 
 ) {
@@ -74,7 +77,7 @@ fun SwvlCloneNavHost(
             authScreen(
                 googleAuthUiClient = googleAuthUiClient,
                 onPhoneFieldClick = { navController.navigateToMobileAuth() },
-                onSignInSuccess = { navController.navigateToHome() })
+                onSignInSuccess = { navController.navigate(homeGraphRoute) })
 
             mobileAuthScreen(
                 onForwardPressed = { phoneNumber ->
@@ -84,21 +87,37 @@ fun SwvlCloneNavHost(
             )
 
             otpScreen(
-                onForwardPressed = { navController.navigateToHome() },
+                onForwardPressed = { navController.navigate(homeGraphRoute) },
                 onBackPressed = { navController.popBackStack() })
         }
 
-        homeScreen(
-            currentDestinationRoute = currentDestination?.route ?: UserTripsDest.route,
-            onLocationClick = { tripTime ->
-                navController.navigateToLocation(tripTime)
-            },
-            onDrawerItemClick = { route -> navController.navigate(route) }
-        )
+        navigation(route = homeGraphRoute, startDestination = HomeDest.route) {
+
+            homeScreen(
+                googleAuthUiClient = googleAuthUiClient,
+                currentDestinationRoute = currentDestination?.route ?: UserTripsDest.route,
+                onLocationClick = { tripTime ->
+                    Timber.d("TripTime From Home: ${tripTime.day}: ${tripTime.hour}")
+                    navController.navigateToLocation(tripTime)
+                },
+                onDrawerItemClick = { route -> navController.navigate(route) },
+                onOfferClick = { navController.navigateToPackages() },
+                onTripCategoryClick = { navController.navigateToLocation() },
+                onCityClick = { navController.navigateToLocation() },
+                onFavoriteLocationClick = { isSet, type, location, time ->
+                    if (isSet) {
+                        navController.navigateToAvailableTrips(time, location)
+                    } else {
+                        navController.navigateToSaveLocation(type)
+                    }
+                }
+            )
+            saveLocationScreen(onBackPressed = { navController.popBackStack() })
+        }
 
         navigation(
             route = availableTripsGraphRoute,
-            startDestination = LocationDest.route
+            startDestination = LocationDest.routeWithArgs
         ) {
             locationScreen(
                 onBackPressed = {
@@ -109,7 +128,7 @@ fun SwvlCloneNavHost(
                 },
                 onLocationPicked = { pickedLocation ->
                     navController.navigateToAvailableTrips(
-                        TripTime("", ""),
+                        TripTime(258, 258),
                         pickedLocation
                     )
                 }

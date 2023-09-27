@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,11 +17,22 @@ import androidx.compose.material.icons.filled.Brightness1
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -31,12 +43,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.swvlclone.R
+import com.example.swvlclone.comon.utils.extractDateFormatted
+import com.example.swvlclone.comon.utils.extractHourFormatted
 import com.example.swvlclone.domain.models.TripTime
 import com.example.swvlclone.ui.theme.SwvlCloneTheme
+import java.util.Calendar
 
 @Composable
 fun GoSection(
     modifier: Modifier = Modifier,
+    selectedTripTime: String,
     onTripTimeClick: () -> Unit = {},
     onLocationCardClick: () -> Unit = {},
 ) {
@@ -48,13 +64,13 @@ fun GoSection(
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Text(
-            text = "Let's Go!",
+            text = stringResource(R.string.let_go),
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .padding(vertical = 12.dp)
         )
-        TripTimeButton {
+        TripTimeButton(selectedTripTime = selectedTripTime) {
             onTripTimeClick()
         }
         LocationCard {
@@ -66,6 +82,7 @@ fun GoSection(
 @Composable
 private fun TripTimeButton(
     modifier: Modifier = Modifier,
+    selectedTripTime: String,
     onClick: () -> Unit,
 ) {
     val color = MaterialTheme.colorScheme.outline
@@ -88,7 +105,7 @@ private fun TripTimeButton(
 
         )
         Text(
-            text = "Now",
+            text = selectedTripTime,
             color = color
         )
         Icon(
@@ -158,89 +175,11 @@ private fun LocationField(
 }
 
 
-@Composable
-fun TripTimeBottomSheet(
-    modifier: Modifier = Modifier,
-    onProceedButtonClick: (TripTime) -> Unit = {}
-) {
-
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        Text(
-            text = "Show Trips Starting From",
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier
-                .padding(vertical = 12.dp)
-        )
-        Divider()
-        DateTimePickerItem(text = R.string.time) {
-            //TODO Show Time Picker
-        }
-        Divider()
-        DateTimePickerItem(text = R.string.date) {
-            //TODO Show date Picker
-        }
-        Divider()
-        Button(
-            modifier = Modifier
-                .align(CenterHorizontally)
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp, vertical = 12.dp),
-            onClick = {
-                //TODO Get picked day and hour
-                onProceedButtonClick(TripTime(day = "Tomorrow", hour = "06:00 am"))
-            }) {
-            Text(text = "Proceed".uppercase())
-
-        }
-    }
-}
-
-@Composable
-private fun DateTimePickerItem(
-    modifier: Modifier = Modifier,
-    @StringRes text: Int,
-    pickedValue: String = "Now",
-    onItemClick: () -> Unit,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-
-        Text(
-            text = stringResource(id = text),
-            color = MaterialTheme.colorScheme.outline
-        )
-        Text(
-            text = pickedValue,
-            modifier = Modifier.clickable {
-                onItemClick()
-            }
-        )
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 private fun GoSectionPreview() {
     SwvlCloneTheme {
-        GoSection()
+        GoSection(selectedTripTime = "28 Sep at 5 pm")
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TripTimeSheetPreview() {
-    TripTimeBottomSheet()
-
 }

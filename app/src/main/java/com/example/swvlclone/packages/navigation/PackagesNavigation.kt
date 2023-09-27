@@ -1,5 +1,6 @@
 package com.example.swvlclone.packages.navigation
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.swvlclone.packages.PackageRoute
@@ -18,4 +19,8 @@ fun NavGraphBuilder.packagesScreen(onBackPressed: () -> Unit) {
             onBackPressed = onBackPressed
         )
     }
+}
+
+fun NavController.navigateToPackages() {
+    this.navigate(PackagesDest.route)
 }
